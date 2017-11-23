@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="">
+    <Query>
+      <DataSourceReference>JitterData</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@SetupIDs">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Int32</rd:DbType>
+          <rd:IsMultiValued>true</rd:IsMultiValued>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>SELECT		h.ConvSpeed
+			,h.Product
+			,h.ImageLength
+			,h.Channel
+			,COUNT(h.Channel)	[Count]
+FROM
+(
+SELECT		MaxMinValues.Product
+			,MaxMinValues.ImageLength
+			,MaxMinValues.ConvSpeed
+			,CAST(1.00 * (del.Delay - MaxMinValues.MinValue) / MaxMinValues.Span * 1000 AS int) [Channel]
+
+FROM		Delays del
+INNER JOIN
+(
+		SELECT		s.ConvSpeed
+					,s.Product
+					,MAX(s.SetupID) [SetupID]
+					,s.ImageLength
+					,MAX(d.Delay) [MaxValue]
+					,MIN(d.Delay) [MinValue]
+					,MAX(d.Delay) - MIN(d.Delay) [Span]
+			
+		FROM		Delays d
+		INNER JOIN	TestSetup s ON
+					d.SetupID = s.SetupID
+		WHERE		s.SetupID IN (@SetupIDs)
+		GROUP BY	ConvSpeed
+					,Product
+					,ImageLength
+) AS MaxMinValues ON
+MaxMinValues.SetupID = del.SetupID
+) AS h
+GROUP BY	h.ConvSpeed, h.Product, h.ImageLength, h.Channel</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="ConvSpeed">
+        <DataField>ConvSpeed</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Product">
+        <DataField>Product</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ImageLength">
+        <DataField>ImageLength</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Channel">
+        <DataField>Channel</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Count">
+        <DataField>Count</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

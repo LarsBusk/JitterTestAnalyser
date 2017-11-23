@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="JitterTestData" Class="DataBaseHelperDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=bl-win2k12r203\sql2014;Initial Catalog=JitterTestData;Integrated Security=True" SettingsObjectName="JitterTestAnalyser.Properties.Settings" SettingsPropertyName="JitterTestDataConnectionString2" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Delays" Member="Delays">
+    <Type Name="Delay">
+      <Column Name="DelayID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Delay" Member="Delay1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SampleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SystemID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SetupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="TestSetup_Delay" Member="TestSetup" ThisKey="SetupID" OtherKey="SetupID" Type="TestSetup" IsForeignKey="true" />
+      <Association Name="TestSystem_Delay" Member="TestSystem" ThisKey="SystemID" OtherKey="SystemID" Type="TestSystem" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TestSetup" Member="TestSetups">
+    <Type Name="TestSetup">
+      <Column Name="SetupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NovaVersion" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MantaVersion" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Product" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ImageLength" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RawDataEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FODEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SurveilanceEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="StatisticsEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="MeasureFrom" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ConvSpeed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DataBaseSize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CsvFile" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="TestSetup_Delay" Member="Delays" ThisKey="SetupID" OtherKey="SetupID" Type="Delay" />
+      <Association Name="TestSetup_TestSetup" Member="TestSetup1" ThisKey="SetupID" OtherKey="SetupID" Type="TestSetup" Cardinality="One" />
+      <Association Name="TestSetup_TestSetup" Member="TestSetup11" ThisKey="SetupID" OtherKey="SetupID" Type="TestSetup" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TestSystem" Member="TestSystems">
+    <Type Name="TestSystem">
+      <Column Name="SystemID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="HardWare" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RamSize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateForImage" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TestSystem_Delay" Member="Delays" ThisKey="SystemID" OtherKey="SystemID" Type="Delay" />
+    </Type>
+  </Table>
+  <Function Name="dbo.DeleteTestSetup" Method="DeleteTestSetup">
+    <Parameter Name="CsvFileName" Parameter="csvFileName" Type="System.String" DbType="NVarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddDelayValues" Method="AddDelayValues">
+    <Parameter Name="TimeStamp" Parameter="timeStamp" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Delay" Parameter="delay" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SampleID" Parameter="sampleID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SystemID" Parameter="systemID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SetupID" Parameter="setupID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetTestSystems" Method="GetTestSystems" IsComposable="true">
+    <ElementType Name="GetTestSystemsResult">
+      <Column Name="SystemID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteTestSetupID" Method="DeleteTestSetupID">
+    <Parameter Name="SetupID" Parameter="setupID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ExcludeTestSetupFromSumary" Method="ExcludeTestSetupFromSumary">
+    <Parameter Name="SetupID" Parameter="setupID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddNewTestSetup" Method="AddNewTestSetup">
+    <Parameter Name="NovaVersion" Parameter="novaVersion" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="MantaVersion" Parameter="mantaVersion" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Product" Parameter="product" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="ImageLength" Parameter="imageLength" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RawDataEnabled" Parameter="rawDataEnabled" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="FODEnabled" Parameter="fODEnabled" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="SurveilanceEnabled" Parameter="surveilanceEnabled" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="StatisticsEnabled" Parameter="statisticsEnabled" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="MeasureFrom" Parameter="measureFrom" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="ConvSpeed" Parameter="convSpeed" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DataBaseSize" Parameter="dataBaseSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CsvFile" Parameter="csvFile" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="SystemID" Parameter="systemID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="OpcClient" Parameter="opcClient" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

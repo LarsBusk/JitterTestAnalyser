@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="">
+    <Query>
+      <DataSourceReference>JitterData</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@SetupIDs">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>SELECT		setup.SetupID
+			,MAX(setup.ImageLength)	[ImageLength]
+			,MAX(setup.Product)		[Product]	
+			,MIN(del.Delay)			[MinDelay]
+			,AVG(del.Delay)			[MeanDelay]
+			,MAX(del.Delay)			[MaxDelay]
+			,STDEV(del.Delay)		[StdDevDelay]
+
+FROM		Delays del
+INNER JOIN	TestSetup setup ON
+			del.SetupID = setup.SetupID
+WHERE		setup.SetupID IN (@SetupIDs)
+
+GROUP BY	 setup.SetupID
+
+ORDER By	max(setup.Product)</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="SetupID">
+        <DataField>SetupID</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="ImageLength">
+        <DataField>ImageLength</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Product">
+        <DataField>Product</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="MinDelay">
+        <DataField>MinDelay</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="MeanDelay">
+        <DataField>MeanDelay</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="MaxDelay">
+        <DataField>MaxDelay</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="StdDevDelay">
+        <DataField>StdDevDelay</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

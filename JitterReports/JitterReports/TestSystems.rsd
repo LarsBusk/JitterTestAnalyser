@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="">
+    <Query>
+      <DataSourceReference>JitterData</DataSourceReference>
+      <CommandText>SELECT		s.SetupID
+		,sys.Name
+			,NovaVersion
+			,MantaVersion
+			,Product
+			,ImageLength
+			,RawDataEnabled
+			,FODEnabled
+			,SurveilanceEnabled
+			,StatisticsEnabled
+			,MeasureFrom
+			,ConvSpeed
+			,DataBaseSize
+			,CsvFile
+			,OpcClient
+			,ExcludeFromSumery
+			,d.SampleCount
+			,d.MaxDelay
+			,d.TestDateTime
+			,long.[GreaterThan10s]
+			,medium.[5to10s]
+			,small.SmallerThan5
+FROM		TestSetup s
+LEFT JOIN
+(
+	SELECT	COUNT(*) [SampleCount]
+			,MAX(Delay) [MaxDelay]
+			,SetupID
+			,MAX(TimeStamp) [TestDateTime]
+	FROM	Delays
+	GROUP BY SetupID
+) d ON
+	d.SetupID = s.SetupID
+LEFT JOIN
+(
+	SELECT		COUNT(*) [GreaterThan10s]
+				,SetupID
+	FROM		Delays
+	WHERE		Delay &gt; 10000
+	GROUP BY	SetupID
+
+) long ON
+	long.SetupID = d.SetupID
+LEFT JOIN
+(
+	SELECT		COUNT(*) [5to10s]
+				,SetupID
+	FROM		Delays
+	WHERE		Delay &lt; 10000 AND Delay &gt; 5000
+	GROUP BY	SetupID
+
+) medium ON
+	medium.SetupID = d.SetupID
+LEFT JOIN
+(
+	SELECT		COUNT(*) [SmallerThan5]
+				,SetupID
+	FROM		Delays
+	WHERE		Delay &lt; 5000
+	GROUP BY	SetupID
+
+) small ON
+	small.SetupID = d.SetupID
+ INNER JOIN	TestSystem sys ON
+				s.SystemID = sys.SystemID</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="CsvFile">
+        <DataField>CsvFile</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="SetupID">
+        <DataField>SetupID</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Name">
+        <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="NovaVersion">
+        <DataField>NovaVersion</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="MantaVersion">
+        <DataField>MantaVersion</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Product">
+        <DataField>Product</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ImageLength">
+        <DataField>ImageLength</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="RawDataEnabled">
+        <DataField>RawDataEnabled</DataField>
+        <rd:TypeName>System.Boolean</rd:TypeName>
+      </Field>
+      <Field Name="FODEnabled">
+        <DataField>FODEnabled</DataField>
+        <rd:TypeName>System.Boolean</rd:TypeName>
+      </Field>
+      <Field Name="SurveilanceEnabled">
+        <DataField>SurveilanceEnabled</DataField>
+        <rd:TypeName>System.Boolean</rd:TypeName>
+      </Field>
+      <Field Name="StatisticsEnabled">
+        <DataField>StatisticsEnabled</DataField>
+        <rd:TypeName>System.Boolean</rd:TypeName>
+      </Field>
+      <Field Name="MeasureFrom">
+        <DataField>MeasureFrom</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ConvSpeed">
+        <DataField>ConvSpeed</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="DataBaseSize">
+        <DataField>DataBaseSize</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="OpcClient">
+        <DataField>OpcClient</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ExcludeFromSumery">
+        <DataField>ExcludeFromSumery</DataField>
+        <rd:TypeName>System.Boolean</rd:TypeName>
+      </Field>
+      <Field Name="SampleCount">
+        <DataField>SampleCount</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="MaxDelay">
+        <DataField>MaxDelay</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="TestDateTime">
+        <DataField>TestDateTime</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="GreaterThan10s">
+        <DataField>GreaterThan10s</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="ID5to10s">
+        <DataField>5to10s</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="SmallerThan5">
+        <DataField>SmallerThan5</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="NiceCsvName">
+        <Value>=Left(Right(Fields!CsvFile.Value, 
+	Len(Fields!CsvFile.Value) - InStrRev(Fields!CsvFile.Value, "PT") + 2) , 14)</Value>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

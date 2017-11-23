@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="">
+    <Query>
+      <DataSourceReference>JitterData</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@SetupID">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>SELECT		MAX(d.SetupID)	[SetupID]
+			,MAX(d.Delay)	[MaxDelay]
+			,MIN(d.Delay)	[MinDelay]
+			,AVG(d.Delay)	[MeanDelay]
+			,STDEV(d.Delay)	[StdDevDelay]
+			,COUNT(d.Delay)	[Count]
+			,MAX(gto.CountLargerThanZero) [GreaterThanZero]
+			,MAX(gtoShort.CountLargerThanZero) [GreaterThanZeroShort]
+FROM		Delays d
+INNER JOIN	TestSetup setup ON
+			d.SetupID = setup.SetupID
+INNER JOIN
+(
+		SELECT		Count(d.Delay) [CountLargerThanZero]
+					,md.SetupID
+		FROM		Delays d
+		RIGHT JOIN
+		(
+				SELECT		CASE Product
+								WHEN 'Loose' THEN 1.25 / ConvSpeed * 1E6
+								ELSE  1.00 * (1250 + ImageLength) * 1000 / ConvSpeed
+							END [MaxAllowedDelay]
+							,SetupID
+				FROM		TestSetup
+				WHERE		SetupID = @SetupID
+		) AS md		ON
+					md.SetupID = d.SetupID AND
+					d.Delay &gt; md.MaxAllowedDelay
+		GROUP BY	md.SetupID
+) AS gto ON
+			d.SetupID = gto.SetupID
+INNER JOIN
+(
+		SELECT		Count(d.Delay) [CountLargerThanZero]
+					,md.SetupID
+		FROM		Delays d
+		RIGHT JOIN
+		(
+				SELECT		 1.00 * (750 + ImageLength) * 1000 / ConvSpeed		 [MaxAllowedDelay]
+							,SetupID
+				FROM		TestSetup
+				WHERE		SetupID = @SetupID
+		) AS md		ON
+					md.SetupID = d.SetupID AND
+					d.Delay &gt; md.MaxAllowedDelay
+		GROUP BY	md.SetupID
+) AS gtoShort ON
+			d.SetupID = gtoShort.SetupID
+WHERE		d.SetupID IN(@SetupID)
+GROUP BY	d.SetupID</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="SetupID">
+        <DataField>SetupID</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="MaxDelay">
+        <DataField>MaxDelay</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="MinDelay">
+        <DataField>MinDelay</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="MeanDelay">
+        <DataField>MeanDelay</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="StdDevDelay">
+        <DataField>StdDevDelay</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="Count">
+        <DataField>Count</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="GreaterThanZero">
+        <DataField>GreaterThanZero</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="GreaterThanZeroShort">
+        <DataField>GreaterThanZeroShort</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

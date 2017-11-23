@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="">
+    <Query>
+      <DataSourceReference>JitterData</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@SetupIDs">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>SELECT		100.0 * [Ntilen] / 10000	[Percentage]
+			,MAX(Delay) AS							[MaxDelay]
+			,CASE Product
+				WHEN 'Loose' THEN MAX(Delay) * MAX(ConvSpeed) / 1000 - 1250 
+				ELSE MAX(Delay) * MAX(ConvSpeed) / 1000 - (1250 + MAX(ImageLength)) 
+			END AS									[RejectorDistance]
+			,MAX(Delay) * MAX(ConvSpeed) / 1000 - (750 + MAX(ImageLength)) [RejectorDistanceShort]
+			,ImageLength
+			,Product
+			,HardWare
+			,ConvSpeed
+			,COUNT(*)								[SamplesMeasured]
+FROM	(SELECT		NTILE(10000) OVER(PARTITION BY Hardware, Product, Imagelength, ConvSpeed ORDER BY d.Delay) [Ntilen]
+					,d.Delay
+					,t.ConvSpeed
+					,t.Product
+					,t.ImageLength
+					,t.SetupID
+					,d.SystemID
+					,sys.HardWare
+		FROM		Delays d
+		INNER JOIN	TestSetup t ON
+					d.SetupID = t.SetupID
+		INNER JOIN	TestSystem sys ON
+					sys.SystemID = d.SystemID
+		WHERE		t.SetupID IN(@SetupIDs)
+		) as Ntiles
+	GROUP BY	[Ntilen], HardWare, Product, ImageLength, ConvSpeed
+	HAVING		[Ntilen] = 9999
+UNION
+(
+	SELECT		100.0 * [Ntilen] / 1000	[Percentage]
+				,MAX(Delay) AS							[MaxDelay]
+				,CASE Product
+					WHEN 'Loose' THEN MAX(Delay) * MAX(ConvSpeed) / 1000 - 1250 
+					ELSE MAX(Delay) * MAX(ConvSpeed) / 1000 - (1250 + MAX(ImageLength)) 
+				END AS									[RejectorDistance]
+				,MAX(Delay) * MAX(ConvSpeed) / 1000 - (750 + MAX(ImageLength)) [RejectorDistanceShort]
+				,ImageLength
+				,Product
+				,HardWare
+				,ConvSpeed
+				,COUNT(*)								[SamplesMeasured]
+	FROM	(SELECT		NTILE(1000) OVER(PARTITION BY Hardware, Product, Imagelength, ConvSpeed ORDER BY d.Delay) [Ntilen]
+						,d.Delay
+						,t.ConvSpeed
+						,t.Product
+						,t.ImageLength
+						,t.SetupID
+						,d.SystemID
+						,sys.HardWare
+			FROM		Delays d
+			INNER JOIN	TestSetup t ON
+						d.SetupID = t.SetupID
+			INNER JOIN	TestSystem sys ON
+						sys.SystemID = d.SystemID
+			WHERE		t.SetupID IN(@SetupIDs)
+			) as Ntiles
+	GROUP BY	[Ntilen], HardWare, Product, ImageLength, ConvSpeed
+	HAVING		[Ntilen] = 999
+)
+UNION
+(
+	SELECT		100.0 * [Ntilen] / 100000	[Percentage]
+				,MAX(Delay) AS							[MaxDelay]
+				,CASE Product
+					WHEN 'Loose' THEN MAX(Delay) * MAX(ConvSpeed) / 1000 - 1250 
+					ELSE MAX(Delay) * MAX(ConvSpeed) / 1000 - (1250 + MAX(ImageLength)) 
+				END AS									[RejectorDistance]
+				,MAX(Delay) * MAX(ConvSpeed) / 1000 - (750 + MAX(ImageLength)) [RejectorDistanceShort]
+				,ImageLength
+				,Product
+				,HardWare
+				,ConvSpeed
+				,COUNT(*)								[SamplesMeasured]
+	FROM	(SELECT		NTILE(100000) OVER(PARTITION BY Hardware, Product, Imagelength, ConvSpeed ORDER BY d.Delay) [Ntilen]
+						,d.Delay
+						,t.ConvSpeed
+						,t.Product
+						,t.ImageLength
+						,t.SetupID
+						,d.SystemID
+						,sys.HardWare
+			FROM		Delays d
+			INNER JOIN	TestSetup t ON
+						d.SetupID = t.SetupID
+			INNER JOIN	TestSystem sys ON
+						sys.SystemID = d.SystemID
+			WHERE		t.SetupID IN(@SetupIDs)
+			) as Ntiles
+	GROUP BY	[Ntilen], HardWare, Product, ImageLength, ConvSpeed
+	HAVING		[Ntilen] = 99999
+)
+UNION
+(
+	SELECT		100.0									[Percentage]
+				,MAX(Delay) AS							[MaxDelay]
+				,CASE Product
+					WHEN 'Loose' THEN MAX(Delay) * MAX(ConvSpeed) / 1000 - 1250 
+					ELSE MAX(Delay) * MAX(ConvSpeed) / 1000 - (1250 + MAX(ImageLength)) 
+				END AS									[RejectorDistance]
+				,MAX(Delay) * MAX(ConvSpeed) / 1000 - (750 + MAX(ImageLength)) [RejectorDistanceShort]
+				,ImageLength
+				,Product
+				,HardWare
+				,ConvSpeed
+				,COUNT(*)								[SamplesMeasured]
+	FROM	(SELECT		100.0 [Ntilen]
+						,d.Delay
+						,t.ConvSpeed
+						,t.Product
+						,t.ImageLength
+						,t.SetupID
+						,d.SystemID
+						,sys.HardWare
+			FROM		Delays d
+			INNER JOIN	TestSetup t ON
+						d.SetupID = t.SetupID
+			INNER JOIN	TestSystem sys ON
+						sys.SystemID = d.SystemID
+			WHERE		t.SetupID IN(@SetupIDs)
+			) as Ntiles
+	GROUP BY	HardWare, Product, ImageLength, ConvSpeed
+)
+ORDER BY HardWare, Product, ImageLength, ConvSpeed</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="Percentage">
+        <DataField>Percentage</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="MaxDelay">
+        <DataField>MaxDelay</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="RejectorDistance">
+        <DataField>RejectorDistance</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="RejectorDistanceShort">
+        <DataField>RejectorDistanceShort</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="ImageLength">
+        <DataField>ImageLength</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Product">
+        <DataField>Product</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="HardWare">
+        <DataField>HardWare</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ConvSpeed">
+        <DataField>ConvSpeed</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="SamplesMeasured">
+        <DataField>SamplesMeasured</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

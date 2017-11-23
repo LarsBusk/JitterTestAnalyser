@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <DataSet Name="">
+    <Query>
+      <DataSourceReference>JitterData</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@SetupIDs">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:UserDefined>true</rd:UserDefined>
+          <rd:DbType>Int32</rd:DbType>
+          <rd:IsMultiValued>true</rd:IsMultiValued>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>
+
+SELECT		MAX(h.ConvSpeed) [ConvSpeed]
+			,MAX(h.Product) [Product]
+			,MAX(h.ImageLength) [ImageLength]
+			,MAX(h.MaxVal) [MaxDelay]
+			,MAX(h.MinVal) [MinValue]
+			,MAX(h.MeanDelay) [MeanDelay]
+			,MAX(h.StdDev) [StdDev]
+			,h.SetupID
+			,h.Channel
+			,COUNT(h.Channel)	[Count]
+			,(h.Channel - 1) * MIN(Span) / MIN(NoOfChannels) [MinChannel]
+			,(h.Channel) * MIN(Span) / MIN(NoOfChannels) [MaxChannel]
+FROM
+(
+	SELECT		MaxMinValues.Product
+				,MaxMinValues.ImageLength
+				,MaxMinValues.ConvSpeed
+				,CASE 
+					WHEN del.Delay &lt; 500 THEN 1
+					WHEN del.Delay &gt; 20000 THEN MaxMinValues.NoOfChannels
+					ELSE CAST((1.000 * (del.Delay) / MaxMinValues.Span) * MaxMinValues.NoOfChannels + 1 AS int) 
+				END [Channel]
+				,MaxMinValues.SetupID
+				,MaxMinValues.Span [Span]
+				,MaxMinValues.MinDelay [MinVal]
+				,MaxMinValues.MaxDelay [MaxVal]
+				,MaxMinValues.MeanDelay [MeanDelay]
+				,MaxMinValues.StdDev [StdDev]
+				,MaxMinValues.NoOfChannels [NoOfChannels]		
+
+	FROM		Delays del
+	INNER JOIN
+(
+		SELECT		MAX(s.ConvSpeed) [ConvSpeed]
+					,MAX(s.Product) [Product]
+					,s.SetupID
+					,MAX(s.ImageLength) [ImageLength]
+					,CASE
+						WHEN MAX(d.Delay) &gt; 20000 THEN 20000
+						ELSE MAX(d.Delay)
+					END [MaxValue]
+					,MIN(d.Delay) [MinDelay]
+					,MAX(d.Delay) [MaxDelay]
+					,AVG(d.Delay) [MeanDelay]
+					,STDEV(d.Delay) [StdDev]
+					,CASE	
+						WHEN MAX(d.Delay) &gt; 20000 THEN 20000 - MIN(d.Delay)
+						ELSE MAX(d.Delay) - MIN(d.Delay)
+					END [Span]
+					,CASE
+						WHEN COUNT(*) &lt; 10000 THEN 100
+						ELSE 500
+						--COUNT(*) / 100 
+					END [NoOfChannels]
+			
+		FROM		Delays d
+		INNER JOIN	TestSetup s ON
+					d.SetupID = s.SetupID
+		WHERE		s.SetupID IN (@SetupIDs)
+		GROUP BY	s.SetupID
+) AS MaxMinValues ON
+MaxMinValues.SetupID = del.SetupID
+) AS h
+GROUP BY	h.SetupID, h.Channel
+--ORDER BY	ConvSpeed, Product, ImageLength, h.Channel</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="ConvSpeed">
+        <DataField>ConvSpeed</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Product">
+        <DataField>Product</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ImageLength">
+        <DataField>ImageLength</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="MaxDelay">
+        <DataField>MaxDelay</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Channel">
+        <DataField>Channel</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="MinValue">
+        <DataField>MinValue</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="SetupID">
+        <DataField>SetupID</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="MeanDelay">
+        <DataField>MeanDelay</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Count">
+        <DataField>Count</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="StdDev">
+        <DataField>StdDev</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="MinChannel">
+        <DataField>MinChannel</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="MaxChannel">
+        <DataField>MaxChannel</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>
