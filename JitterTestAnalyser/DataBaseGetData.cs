@@ -19,7 +19,7 @@ namespace JitterTestAnalyser
     {
       //context = new DataBaseHelperDataContext();
       var se = context.TestSetups.GroupBy(t => t.NovaVersion).Select(g => g.First());
-      var ver = se.Select(s => s.NovaVersion);
+      var ver = se.Select(s => s.NovaVersion).OrderByDescending(t => t);
       return ver;
     }
 
@@ -49,7 +49,8 @@ namespace JitterTestAnalyser
         testResult.DataBaseSize,
         testResult.CsvFileName,
         testResult.TestSystem.SystemID,
-        testResult.OpcClient);
+        testResult.OpcClient,
+        testResult.NlcpPoints);
     }
 
     public void AddDelay(DateTime timeStamp, int sampleId, int delay, int systemId, int setupId)

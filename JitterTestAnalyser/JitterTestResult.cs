@@ -37,6 +37,8 @@ namespace JitterTestAnalyser
 
     public string OpcClient { get; set; }
 
+    public int NlcpPoints { get; set; }
+
     public List<SampleDelay> Delays { get; set; }
 
     public JitterTestResult()

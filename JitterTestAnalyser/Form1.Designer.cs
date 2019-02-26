@@ -31,6 +31,8 @@
       this.components = new System.ComponentModel.Container();
       this.tabControl1 = new System.Windows.Forms.TabControl();
       this.tabPage1 = new System.Windows.Forms.TabPage();
+      this.label10 = new System.Windows.Forms.Label();
+      this.cbOpcClient = new System.Windows.Forms.ComboBox();
       this.label8 = new System.Windows.Forms.Label();
       this.tbDbSize = new System.Windows.Forms.TextBox();
       this.cbStatistics = new System.Windows.Forms.CheckBox();
@@ -62,8 +64,8 @@
       this.label9 = new System.Windows.Forms.Label();
       this.tbSetupID = new System.Windows.Forms.TextBox();
       this.testSystemBindingSource = new System.Windows.Forms.BindingSource(this.components);
-      this.cbOpcClient = new System.Windows.Forms.ComboBox();
-      this.label10 = new System.Windows.Forms.Label();
+      this.cbNlcpPoints = new System.Windows.Forms.ComboBox();
+      this.label11 = new System.Windows.Forms.Label();
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
       this.tabPage2.SuspendLayout();
@@ -83,6 +85,8 @@
       // 
       // tabPage1
       // 
+      this.tabPage1.Controls.Add(this.label11);
+      this.tabPage1.Controls.Add(this.cbNlcpPoints);
       this.tabPage1.Controls.Add(this.label10);
       this.tabPage1.Controls.Add(this.cbOpcClient);
       this.tabPage1.Controls.Add(this.label8);
@@ -117,6 +121,26 @@
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "Add New Data";
       this.tabPage1.UseVisualStyleBackColor = true;
+      // 
+      // label10
+      // 
+      this.label10.AutoSize = true;
+      this.label10.Location = new System.Drawing.Point(281, 19);
+      this.label10.Name = "label10";
+      this.label10.Size = new System.Drawing.Size(55, 13);
+      this.label10.TabIndex = 47;
+      this.label10.Text = "Opc client";
+      // 
+      // cbOpcClient
+      // 
+      this.cbOpcClient.FormattingEnabled = true;
+      this.cbOpcClient.Items.AddRange(new object[] {
+            "FossOpcServer",
+            "PDx"});
+      this.cbOpcClient.Location = new System.Drawing.Point(284, 35);
+      this.cbOpcClient.Name = "cbOpcClient";
+      this.cbOpcClient.Size = new System.Drawing.Size(167, 21);
+      this.cbOpcClient.TabIndex = 46;
       // 
       // label8
       // 
@@ -415,25 +439,25 @@
       // 
       this.testSystemBindingSource.DataSource = typeof(JitterTestAnalyser.TestSystem);
       // 
-      // cbOpcClient
+      // cbNlcpPoints
       // 
-      this.cbOpcClient.FormattingEnabled = true;
-      this.cbOpcClient.Items.AddRange(new object[] {
-            "FossOpcServer",
-            "PDx"});
-      this.cbOpcClient.Location = new System.Drawing.Point(284, 35);
-      this.cbOpcClient.Name = "cbOpcClient";
-      this.cbOpcClient.Size = new System.Drawing.Size(167, 21);
-      this.cbOpcClient.TabIndex = 46;
+      this.cbNlcpPoints.FormattingEnabled = true;
+      this.cbNlcpPoints.Items.AddRange(new object[] {
+            "4",
+            "24"});
+      this.cbNlcpPoints.Location = new System.Drawing.Point(288, 131);
+      this.cbNlcpPoints.Name = "cbNlcpPoints";
+      this.cbNlcpPoints.Size = new System.Drawing.Size(121, 21);
+      this.cbNlcpPoints.TabIndex = 48;
       // 
-      // label10
+      // label11
       // 
-      this.label10.AutoSize = true;
-      this.label10.Location = new System.Drawing.Point(281, 19);
-      this.label10.Name = "label10";
-      this.label10.Size = new System.Drawing.Size(55, 13);
-      this.label10.TabIndex = 47;
-      this.label10.Text = "Opc client";
+      this.label11.AutoSize = true;
+      this.label11.Location = new System.Drawing.Point(289, 113);
+      this.label11.Name = "label11";
+      this.label11.Size = new System.Drawing.Size(97, 13);
+      this.label11.TabIndex = 49;
+      this.label11.Text = "Nlcp file datapoints";
       // 
       // MainForm
       // 
@@ -492,6 +516,8 @@
     private System.Windows.Forms.TextBox tbSetupID;
     private System.Windows.Forms.Label label10;
     private System.Windows.Forms.ComboBox cbOpcClient;
+    private System.Windows.Forms.Label label11;
+    private System.Windows.Forms.ComboBox cbNlcpPoints;
   }
 }
 
