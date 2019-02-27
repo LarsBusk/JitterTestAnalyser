@@ -63,9 +63,9 @@
       this.btnDeleteSetup = new System.Windows.Forms.Button();
       this.label9 = new System.Windows.Forms.Label();
       this.tbSetupID = new System.Windows.Forms.TextBox();
-      this.testSystemBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.cbNlcpPoints = new System.Windows.Forms.ComboBox();
       this.label11 = new System.Windows.Forms.Label();
+      this.testSystemBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
       this.tabPage2.SuspendLayout();
@@ -435,17 +435,13 @@
       this.tbSetupID.Size = new System.Drawing.Size(100, 20);
       this.tbSetupID.TabIndex = 0;
       // 
-      // testSystemBindingSource
-      // 
-      this.testSystemBindingSource.DataSource = typeof(JitterTestAnalyser.TestSystem);
-      // 
       // cbNlcpPoints
       // 
       this.cbNlcpPoints.FormattingEnabled = true;
       this.cbNlcpPoints.Items.AddRange(new object[] {
             "4",
             "24"});
-      this.cbNlcpPoints.Location = new System.Drawing.Point(288, 131);
+      this.cbNlcpPoints.Location = new System.Drawing.Point(284, 131);
       this.cbNlcpPoints.Name = "cbNlcpPoints";
       this.cbNlcpPoints.Size = new System.Drawing.Size(121, 21);
       this.cbNlcpPoints.TabIndex = 48;
@@ -453,11 +449,15 @@
       // label11
       // 
       this.label11.AutoSize = true;
-      this.label11.Location = new System.Drawing.Point(289, 113);
+      this.label11.Location = new System.Drawing.Point(285, 115);
       this.label11.Name = "label11";
-      this.label11.Size = new System.Drawing.Size(97, 13);
+      this.label11.Size = new System.Drawing.Size(84, 13);
       this.label11.TabIndex = 49;
-      this.label11.Text = "Nlcp file datapoints";
+      this.label11.Text = "Lines in Nlcp file";
+      // 
+      // testSystemBindingSource
+      // 
+      this.testSystemBindingSource.DataSource = typeof(JitterTestAnalyser.TestSystem);
       // 
       // MainForm
       // 

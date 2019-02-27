@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <DataSet Name="">
     <Query>
       <DataSourceReference>JitterData</DataSourceReference>
@@ -19,6 +19,7 @@
 			,CsvFile
 			,OpcClient
 			,ExcludeFromSumery
+			,s.NlcpPoints
 			,d.SampleCount
 			,d.MaxDelay
 			,d.TestDateTime
@@ -68,6 +69,7 @@ LEFT JOIN
 	small.SetupID = d.SetupID
  INNER JOIN	TestSystem sys ON
 				s.SystemID = sys.SystemID</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
     </Query>
     <Fields>
       <Field Name="CsvFile">
@@ -133,6 +135,10 @@ LEFT JOIN
       <Field Name="ExcludeFromSumery">
         <DataField>ExcludeFromSumery</DataField>
         <rd:TypeName>System.Boolean</rd:TypeName>
+      </Field>
+      <Field Name="NlcpPoints">
+        <DataField>NlcpPoints</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
       </Field>
       <Field Name="SampleCount">
         <DataField>SampleCount</DataField>

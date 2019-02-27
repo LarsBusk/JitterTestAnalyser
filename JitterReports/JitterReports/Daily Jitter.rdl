@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="JitterData">
@@ -78,8 +78,16 @@
           <DataField>OpcClient</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ExcludeFromSumery">
+          <DataField>ExcludeFromSumery</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
         <Field Name="MaxDelay">
           <DataField>MaxDelay</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NlcpPoints">
+          <DataField>NlcpPoints</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="TestDateTime">
@@ -590,7 +598,8 @@
 "Conv speed: " &amp; Lookup(Fields!SetupID.Value, Fields!SetupID.Value, Fields!ConvSpeed.Value, "TestSystems") &amp; Microsoft.VisualBasic.Constants.vbCrLf +
 "Opc: " &amp; Lookup(Fields!SetupID.Value, Fields!SetupID.Value, Fields!OpcClient.Value, "TestSystems") &amp; Microsoft.VisualBasic.Constants.vbCrLf +
 "Samples in Database: " &amp; Lookup(Fields!SetupID.Value, Fields!SetupID.Value, Fields!DataBaseSize.Value, "TestSystems") &amp; Microsoft.VisualBasic.Constants.vbCrLf +
-"Setup ID: " &amp; Fields!SetupID.Value</Value>
+"Setup ID: " &amp; Fields!SetupID.Value &amp; Microsoft.VisualBasic.Constants.vbCrLf +
+"Lines in Nlcpfile: " &amp; Lookup(Fields!SetupID.Value, Fields!SetupID.Value, Fields!NlcpPoints.Value, "TestSystems")</Value>
                                 <Style />
                               </TextRun>
                             </TextRuns>
@@ -1465,6 +1474,24 @@
       </ValidValues>
     </ReportParameter>
   </ReportParameters>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>2</NumberOfColumns>
+      <NumberOfRows>1</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>FromDate</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>TestRuns</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Language>en-US</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>

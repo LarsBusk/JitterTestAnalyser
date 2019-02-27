@@ -2,7 +2,7 @@
 <RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="JitterData">
   <ConnectionProperties>
     <Extension>SQL</Extension>
-    <ConnectString>Data Source=bl-win2k12r203\sql2014;Initial Catalog=JitterTestData</ConnectString>
+    <ConnectString>Data Source=bl-win2k12r203\sql2017;Initial Catalog=JitterTestData</ConnectString>
     <IntegratedSecurity>true</IntegratedSecurity>
   </ConnectionProperties>
   <DataSourceID>224a5512-0221-4fd6-8c83-33487bab5218</DataSourceID>

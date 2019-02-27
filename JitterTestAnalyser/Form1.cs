@@ -69,6 +69,7 @@ namespace JitterTestAnalyser
       int dataBaseSize = 0;
       jitterTestResult.DataBaseSize = int.TryParse(tbDbSize.Text, out dataBaseSize) ? dataBaseSize : 0;
       jitterTestResult.OpcClient = cbOpcClient.Text;
+      jitterTestResult.NlcpPoints = Convert.ToInt32(cbNlcpPoints.Text);
 
       new Thread(this.AddData).Start();
     }
