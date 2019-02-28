@@ -5,6 +5,7 @@
       <DataSourceReference>JitterData</DataSourceReference>
       <CommandText>SELECT		s.SetupID
 		,sys.Name
+		,sys.HardWare
 			,NovaVersion
 			,MantaVersion
 			,Product
@@ -82,6 +83,10 @@ LEFT JOIN
       </Field>
       <Field Name="Name">
         <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="HardWare">
+        <DataField>HardWare</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="NovaVersion">

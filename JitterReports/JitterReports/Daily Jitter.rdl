@@ -26,6 +26,10 @@
           <DataField>Name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="HardWare">
+          <DataField>HardWare</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="NovaVersion">
           <DataField>NovaVersion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -120,6 +124,11 @@
         </Field>
         <Field Name="Surveilance">
           <Value>=IIf(Fields!SurveilanceEnabled.Value, "Enabled", "Disabled")</Value>
+        </Field>
+        <Field Name="MotherBoard">
+          <Value>=IIf(Fields!HardWare.Value.Equals("Gen1"),"First motherboard 4Gb RAM",
+		IIf(Fields!HardWare.Value.Equals("Gen2"), "Second motherboard 8Gb RAM", 
+			"Third motherboard 8Gb RAM"))</Value>
         </Field>
       </Fields>
       <Filters>
@@ -586,6 +595,7 @@
                             <TextRuns>
                               <TextRun>
                                 <Value>="Instrument: " + Lookup(Fields!SetupID.Value, Fields!SetupID.Value, Fields!Name.Value, "TestSystems") + Microsoft.VisualBasic.Constants.vbCrLf +
+"Motherboard: " + Lookup(Fields!SetupID.Value, Fields!SetupID.Value, Fields!MotherBoard.Value, "TestSystems") + Microsoft.VisualBasic.Constants.vbCrLf +
 "Nova: " + Lookup(Fields!SetupID.Value, Fields!SetupID.Value, Fields!NovaVersion.Value, "TestSystems") + Microsoft.VisualBasic.Constants.vbCrLf +
 "Manta: " + Lookup(Fields!SetupID.Value, Fields!SetupID.Value, Fields!MantaVersion.Value, "TestSystems") + Microsoft.VisualBasic.Constants.vbCrLf +
 "Measure from: " + Lookup(Fields!SetupID.Value, Fields!SetupID.Value, Fields!MeasureFrom.Value, "TestSystems") + Microsoft.VisualBasic.Constants.vbCrLf +
