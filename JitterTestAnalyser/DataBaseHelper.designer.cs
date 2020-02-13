@@ -42,7 +42,7 @@ namespace JitterTestAnalyser
     #endregion
 		
 		public DataBaseHelperDataContext() : 
-				base(global::JitterTestAnalyser.Properties.Settings.Default.JitterTestDataConnectionString3, mappingSource)
+				base(global::JitterTestAnalyser.Properties.Settings.Default.JitterTestDataConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

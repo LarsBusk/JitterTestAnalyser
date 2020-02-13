@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="JitterTestData" Class="DataBaseHelperDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=bl-win2k12r203\sql2017;Initial Catalog=JitterTestData;Integrated Security=True" SettingsObjectName="JitterTestAnalyser.Properties.Settings" SettingsPropertyName="JitterTestDataConnectionString3" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=bl-JitterData;Initial Catalog=JitterTestData;Integrated Security=True" SettingsObjectName="JitterTestAnalyser.Properties.Settings" SettingsPropertyName="JitterTestDataConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Delays" Member="Delays">
     <Type Name="Delay">
       <Column Name="DelayID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />

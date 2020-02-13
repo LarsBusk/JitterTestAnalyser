@@ -3,7 +3,7 @@
   <DataSet Name="">
     <Query>
       <DataSourceReference>JitterData</DataSourceReference>
-      <CommandText>SELECT		s.SetupID
+      <CommandText>SELECT DISTINCT		s.SetupID
 		,sys.Name
 		,sys.HardWare
 			,NovaVersion
@@ -170,8 +170,7 @@ LEFT JOIN
         <rd:TypeName>System.Int32</rd:TypeName>
       </Field>
       <Field Name="NiceCsvName">
-        <Value>=Left(Right(Fields!CsvFile.Value, 
-	Len(Fields!CsvFile.Value) - InStrRev(Fields!CsvFile.Value, "PT") + 2) , 14)</Value>
+        <Value>=Left(Right(Fields!CsvFile.Value, 17), 13)</Value>
       </Field>
     </Fields>
   </DataSet>

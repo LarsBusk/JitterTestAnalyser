@@ -3199,6 +3199,11 @@ Microsoft.VisualBasic.Constants.vbCrLf)</Value>
     </ReportParameter>
     <ReportParameter Name="RawDataEnabled">
       <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>false</Value>
+        </Values>
+      </DefaultValue>
       <Prompt>Raw data enabled</Prompt>
       <ValidValues>
         <ParameterValues>

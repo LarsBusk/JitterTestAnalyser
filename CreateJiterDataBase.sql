@@ -81,14 +81,19 @@ CREATE TABLE [dbo].[TestSystem](
 ) ON [PRIMARY];
 
 
-USE [JitterTestData];
+USE [JitterTestData]
+GO
 
-/****** Object:  Table [dbo].[TestSetup]    Script Date: 15-04-2015 09:08:39 ******/
-SET ANSI_NULLS ON;
-SET QUOTED_IDENTIFIER ON;
+/****** Object:  Table [dbo].[TestSetup]    Script Date: 12-02-2020 10:33:46 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
 
 CREATE TABLE [dbo].[TestSetup](
-	[SetupID] [int] IDENTITY (1,1),
+	[SetupID] [int] IDENTITY(1,1) NOT NULL,
+	[SystemID] [int] NOT NULL,
 	[NovaVersion] [nvarchar](50) NOT NULL,
 	[MantaVersion] [nvarchar](50) NOT NULL,
 	[Product] [nvarchar](50) NOT NULL,
@@ -100,18 +105,22 @@ CREATE TABLE [dbo].[TestSetup](
 	[MeasureFrom] [nvarchar](50) NOT NULL,
 	[ConvSpeed] [int] NOT NULL,
 	[DataBaseSize] [int] NOT NULL,
-	[CsvFile] [nvarchar](max) NULL
+	[OpcClient] [nvarchar](20) NOT NULL,
+	[NlcpPoints] [int] NOT NULL,
+	[CsvFile] [nvarchar](max) NULL,
  CONSTRAINT [PK_TestSetup] PRIMARY KEY CLUSTERED 
 (
 	[SetupID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY];
-
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
 
 ALTER TABLE [dbo].[TestSetup]  WITH CHECK ADD  CONSTRAINT [FK_TestSetup_Delays] FOREIGN KEY([SetupID])
-REFERENCES [dbo].[TestSetup] ([SetupID]);
+REFERENCES [dbo].[TestSetup] ([SetupID])
+GO
 
-ALTER TABLE [dbo].[TestSetup] CHECK CONSTRAINT [FK_TestSetup_Delays];
+ALTER TABLE [dbo].[TestSetup] CHECK CONSTRAINT [FK_TestSetup_Delays]
+GO
 
 USE [JitterTestData];
 
@@ -154,16 +163,16 @@ GO
 
 
 USE [JitterTestData]
+GO
 
-/****** Object:  UserDefinedFunction [dbo].[GetNextDelayID]    Script Date: 15-04-2015 09:12:09 ******/
+/****** Object:  StoredProcedure [dbo].[AddNewTestSetup]    Script Date: 12-02-2020 10:35:42 ******/
 SET ANSI_NULLS ON
+GO
+
 SET QUOTED_IDENTIFIER ON
 GO
--- =============================================
--- Author:		<Author,,Name>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
--- =============================================
+
+
 CREATE PROCEDURE [dbo].[AddNewTestSetup] 
 	-- Add the parameters for the stored procedure here
 	@NovaVersion nvarchar(50)
@@ -178,6 +187,9 @@ CREATE PROCEDURE [dbo].[AddNewTestSetup]
 	,@ConvSpeed int
 	,@DataBaseSize int
 	,@CsvFile nvarchar(MAX)
+	,@SystemID int
+	,@OpcClient nvarchar(20)
+	,@NlcpPoints int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -188,7 +200,7 @@ BEGIN
 	DECLARE @NewID int
 
 	INSERT INTO TestSetup (
-		NovaVersion, MantaVersion, Product, ImageLength, RawDataEnabled, FODEnabled, SurveilanceEnabled, StatisticsEnabled, MeasureFrom, ConvSpeed, DataBaseSize, CsvFile) 
+		NovaVersion, MantaVersion, Product, ImageLength, RawDataEnabled, FODEnabled, SurveilanceEnabled, StatisticsEnabled, MeasureFrom, ConvSpeed, DataBaseSize, CsvFile, SystemID, OpcClient, NlcpPoints) 
 		VALUES (
 		@NovaVersion 
 		,@MantaVersion 
@@ -201,13 +213,19 @@ BEGIN
 		,@MeasureFrom 
 		,@ConvSpeed
 		,@DataBaseSize
-		,@CsvFile )
+		,@CsvFile
+		,@SystemID
+		,@OpcClient
+		,@NlcpPoints)
 
 	SELECT @NewID = MAX(SetupID) FROM TestSetup
 	RETURN @NewID
 
 END
 GO
+
+
+
 
 USE [JitterTestData]
 
