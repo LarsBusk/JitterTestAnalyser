@@ -22,10 +22,6 @@
           <DataField>SetupID</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NiceCsvName">
-          <Value>=Left(Right(Fields!CsvFile.Value, 
-	Len(Fields!CsvFile.Value) - InStrRev(Fields!CsvFile.Value, "PT") + 2) , 14)</Value>
-        </Field>
         <Field Name="Name">
           <DataField>Name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -106,7 +102,7 @@
           <DataField>SmallerThan5</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NiceCsvName_1">
+        <Field Name="NiceCsvName">
           <DataField>NiceCsvName</DataField>
         </Field>
       </Fields>
