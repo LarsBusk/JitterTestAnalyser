@@ -102,13 +102,6 @@ namespace JitterTestAnalyser
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddNewTestSetup")]
-		public int AddNewTestSetup([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NovaVersion", DbType="NVarChar(50)")] string novaVersion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MantaVersion", DbType="NVarChar(50)")] string mantaVersion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Product", DbType="NVarChar(50)")] string product, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ImageLength", DbType="Int")] System.Nullable<int> imageLength, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RawDataEnabled", DbType="Bit")] System.Nullable<bool> rawDataEnabled, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FODEnabled", DbType="Bit")] System.Nullable<bool> fODEnabled, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SurveilanceEnabled", DbType="Bit")] System.Nullable<bool> surveilanceEnabled, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="StatisticsEnabled", DbType="Bit")] System.Nullable<bool> statisticsEnabled, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MeasureFrom", DbType="NVarChar(50)")] string measureFrom, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ConvSpeed", DbType="Int")] System.Nullable<int> convSpeed, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DataBaseSize", DbType="Int")] System.Nullable<int> dataBaseSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CsvFile", DbType="NVarChar(MAX)")] string csvFile, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SystemID", DbType="Int")] System.Nullable<int> systemID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="OpcClient", DbType="NVarChar(20)")] string opcClient, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NlcpPoints", DbType="Int")] System.Nullable<int> nlcpPoints)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), novaVersion, mantaVersion, product, imageLength, rawDataEnabled, fODEnabled, surveilanceEnabled, statisticsEnabled, measureFrom, convSpeed, dataBaseSize, csvFile, systemID, opcClient, nlcpPoints);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteTestSetup")]
 		public int DeleteTestSetup([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CsvFileName", DbType="NVarChar(MAX)")] string csvFileName)
 		{
@@ -134,6 +127,29 @@ namespace JitterTestAnalyser
 		public IQueryable<GetTestSystemsResult> GetTestSystems()
 		{
 			return this.CreateMethodCallQuery<GetTestSystemsResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddNewTestSetup")]
+		public int AddNewTestSetup(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="NovaVersion", DbType="NVarChar(50)")] string novaVersion, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="MantaVersion", DbType="NVarChar(50)")] string mantaVersion, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Product", DbType="NVarChar(50)")] string product, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="ImageLength", DbType="Int")] System.Nullable<int> imageLength, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RawDataEnabled", DbType="Bit")] System.Nullable<bool> rawDataEnabled, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FODEnabled", DbType="Bit")] System.Nullable<bool> fODEnabled, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="SurveilanceEnabled", DbType="Bit")] System.Nullable<bool> surveilanceEnabled, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="StatisticsEnabled", DbType="Bit")] System.Nullable<bool> statisticsEnabled, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="MeasureFrom", DbType="NVarChar(50)")] string measureFrom, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="ConvSpeed", DbType="Int")] System.Nullable<int> convSpeed, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="DataBaseSize", DbType="Int")] System.Nullable<int> dataBaseSize, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="CsvFile", DbType="NVarChar(MAX)")] string csvFile, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="SystemID", DbType="Int")] System.Nullable<int> systemID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="OpcClient", DbType="NVarChar(20)")] string opcClient, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="NlcpPoints", DbType="Int")] System.Nullable<int> nlcpPoints, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Comment", DbType="NVarChar(MAX)")] string comment)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), novaVersion, mantaVersion, product, imageLength, rawDataEnabled, fODEnabled, surveilanceEnabled, statisticsEnabled, measureFrom, convSpeed, dataBaseSize, csvFile, systemID, opcClient, nlcpPoints, comment);
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -595,6 +611,8 @@ namespace JitterTestAnalyser
 		
 		private int _SetupID;
 		
+		private int _SystemID;
+		
 		private string _NovaVersion;
 		
 		private string _MantaVersion;
@@ -617,15 +635,15 @@ namespace JitterTestAnalyser
 		
 		private int _DataBaseSize;
 		
-		private string _CsvFile;
-		
-		private System.Nullable<int> _SystemID;
-		
-		private System.Nullable<bool> _ExcludeFromSumery;
-		
 		private string _OpcClient;
 		
 		private int _NlcpPoints;
+		
+		private string _CsvFile;
+		
+		private System.Nullable<bool> _ExcludeFromSumery;
+		
+		private string _Comment;
 		
 		private EntitySet<Delay> _Delays;
 		
@@ -639,6 +657,8 @@ namespace JitterTestAnalyser
     partial void OnCreated();
     partial void OnSetupIDChanging(int value);
     partial void OnSetupIDChanged();
+    partial void OnSystemIDChanging(int value);
+    partial void OnSystemIDChanged();
     partial void OnNovaVersionChanging(string value);
     partial void OnNovaVersionChanged();
     partial void OnMantaVersionChanging(string value);
@@ -661,16 +681,16 @@ namespace JitterTestAnalyser
     partial void OnConvSpeedChanged();
     partial void OnDataBaseSizeChanging(int value);
     partial void OnDataBaseSizeChanged();
-    partial void OnCsvFileChanging(string value);
-    partial void OnCsvFileChanged();
-    partial void OnSystemIDChanging(System.Nullable<int> value);
-    partial void OnSystemIDChanged();
-    partial void OnExcludeFromSumeryChanging(System.Nullable<bool> value);
-    partial void OnExcludeFromSumeryChanged();
     partial void OnOpcClientChanging(string value);
     partial void OnOpcClientChanged();
     partial void OnNlcpPointsChanging(int value);
     partial void OnNlcpPointsChanged();
+    partial void OnCsvFileChanging(string value);
+    partial void OnCsvFileChanged();
+    partial void OnExcludeFromSumeryChanging(System.Nullable<bool> value);
+    partial void OnExcludeFromSumeryChanged();
+    partial void OnCommentChanging(string value);
+    partial void OnCommentChanged();
     #endregion
 		
 		public TestSetup()
@@ -701,6 +721,26 @@ namespace JitterTestAnalyser
 					this._SetupID = value;
 					this.SendPropertyChanged("SetupID");
 					this.OnSetupIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SystemID", DbType="Int NOT NULL")]
+		public int SystemID
+		{
+			get
+			{
+				return this._SystemID;
+			}
+			set
+			{
+				if ((this._SystemID != value))
+				{
+					this.OnSystemIDChanging(value);
+					this.SendPropertyChanging();
+					this._SystemID = value;
+					this.SendPropertyChanged("SystemID");
+					this.OnSystemIDChanged();
 				}
 			}
 		}
@@ -925,67 +965,7 @@ namespace JitterTestAnalyser
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CsvFile", DbType="NVarChar(MAX)")]
-		public string CsvFile
-		{
-			get
-			{
-				return this._CsvFile;
-			}
-			set
-			{
-				if ((this._CsvFile != value))
-				{
-					this.OnCsvFileChanging(value);
-					this.SendPropertyChanging();
-					this._CsvFile = value;
-					this.SendPropertyChanged("CsvFile");
-					this.OnCsvFileChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SystemID", DbType="Int")]
-		public System.Nullable<int> SystemID
-		{
-			get
-			{
-				return this._SystemID;
-			}
-			set
-			{
-				if ((this._SystemID != value))
-				{
-					this.OnSystemIDChanging(value);
-					this.SendPropertyChanging();
-					this._SystemID = value;
-					this.SendPropertyChanged("SystemID");
-					this.OnSystemIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExcludeFromSumery", DbType="Bit")]
-		public System.Nullable<bool> ExcludeFromSumery
-		{
-			get
-			{
-				return this._ExcludeFromSumery;
-			}
-			set
-			{
-				if ((this._ExcludeFromSumery != value))
-				{
-					this.OnExcludeFromSumeryChanging(value);
-					this.SendPropertyChanging();
-					this._ExcludeFromSumery = value;
-					this.SendPropertyChanged("ExcludeFromSumery");
-					this.OnExcludeFromSumeryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpcClient", DbType="NVarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpcClient", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
 		public string OpcClient
 		{
 			get
@@ -1021,6 +1001,66 @@ namespace JitterTestAnalyser
 					this._NlcpPoints = value;
 					this.SendPropertyChanged("NlcpPoints");
 					this.OnNlcpPointsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CsvFile", DbType="NVarChar(MAX)")]
+		public string CsvFile
+		{
+			get
+			{
+				return this._CsvFile;
+			}
+			set
+			{
+				if ((this._CsvFile != value))
+				{
+					this.OnCsvFileChanging(value);
+					this.SendPropertyChanging();
+					this._CsvFile = value;
+					this.SendPropertyChanged("CsvFile");
+					this.OnCsvFileChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExcludeFromSumery", DbType="Bit")]
+		public System.Nullable<bool> ExcludeFromSumery
+		{
+			get
+			{
+				return this._ExcludeFromSumery;
+			}
+			set
+			{
+				if ((this._ExcludeFromSumery != value))
+				{
+					this.OnExcludeFromSumeryChanging(value);
+					this.SendPropertyChanging();
+					this._ExcludeFromSumery = value;
+					this.SendPropertyChanged("ExcludeFromSumery");
+					this.OnExcludeFromSumeryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="NVarChar(MAX)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this.OnCommentChanging(value);
+					this.SendPropertyChanging();
+					this._Comment = value;
+					this.SendPropertyChanged("Comment");
+					this.OnCommentChanged();
 				}
 			}
 		}

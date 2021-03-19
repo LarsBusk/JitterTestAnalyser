@@ -65,6 +65,8 @@
       this.btnDeleteSetup = new System.Windows.Forms.Button();
       this.label9 = new System.Windows.Forms.Label();
       this.tbSetupID = new System.Windows.Forms.TextBox();
+      this.label12 = new System.Windows.Forms.Label();
+      this.rtbComment = new System.Windows.Forms.RichTextBox();
       this.testSystemBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
@@ -85,6 +87,8 @@
       // 
       // tabPage1
       // 
+      this.tabPage1.Controls.Add(this.rtbComment);
+      this.tabPage1.Controls.Add(this.label12);
       this.tabPage1.Controls.Add(this.label11);
       this.tabPage1.Controls.Add(this.cbNlcpPoints);
       this.tabPage1.Controls.Add(this.label10);
@@ -161,6 +165,7 @@
       this.cbOpcClient.Name = "cbOpcClient";
       this.cbOpcClient.Size = new System.Drawing.Size(167, 21);
       this.cbOpcClient.TabIndex = 46;
+      this.cbOpcClient.Text = "PDx";
       // 
       // label8
       // 
@@ -183,7 +188,7 @@
       this.cbStatistics.AutoSize = true;
       this.cbStatistics.Checked = true;
       this.cbStatistics.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbStatistics.Location = new System.Drawing.Point(163, 195);
+      this.cbStatistics.Location = new System.Drawing.Point(135, 195);
       this.cbStatistics.Name = "cbStatistics";
       this.cbStatistics.Size = new System.Drawing.Size(110, 17);
       this.cbStatistics.TabIndex = 43;
@@ -195,7 +200,7 @@
       this.cbSurveilance.AutoSize = true;
       this.cbSurveilance.Checked = true;
       this.cbSurveilance.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.cbSurveilance.Location = new System.Drawing.Point(163, 172);
+      this.cbSurveilance.Location = new System.Drawing.Point(135, 172);
       this.cbSurveilance.Name = "cbSurveilance";
       this.cbSurveilance.Size = new System.Drawing.Size(123, 17);
       this.cbSurveilance.TabIndex = 42;
@@ -214,12 +219,12 @@
       // 
       this.progressBarAdd.Location = new System.Drawing.Point(288, 418);
       this.progressBarAdd.Name = "progressBarAdd";
-      this.progressBarAdd.Size = new System.Drawing.Size(254, 23);
+      this.progressBarAdd.Size = new System.Drawing.Size(328, 23);
       this.progressBarAdd.TabIndex = 40;
       // 
       // btnFile
       // 
-      this.btnFile.Location = new System.Drawing.Point(544, 318);
+      this.btnFile.Location = new System.Drawing.Point(673, 318);
       this.btnFile.Name = "btnFile";
       this.btnFile.Size = new System.Drawing.Size(39, 23);
       this.btnFile.TabIndex = 39;
@@ -231,7 +236,7 @@
       // 
       this.tbFile.Location = new System.Drawing.Point(284, 320);
       this.tbFile.Name = "tbFile";
-      this.tbFile.Size = new System.Drawing.Size(254, 20);
+      this.tbFile.Size = new System.Drawing.Size(383, 20);
       this.tbFile.TabIndex = 38;
       this.tbFile.TextChanged += new System.EventHandler(this.tbFile_TextChanged);
       // 
@@ -325,7 +330,8 @@
       this.cbProduct.FormattingEnabled = true;
       this.cbProduct.Items.AddRange(new object[] {
             "Box",
-            "Loose"});
+            "Loose",
+            "Morphometry"});
       this.cbProduct.Location = new System.Drawing.Point(17, 243);
       this.cbProduct.Name = "cbProduct";
       this.cbProduct.Size = new System.Drawing.Size(196, 21);
@@ -453,6 +459,23 @@
       this.tbSetupID.Size = new System.Drawing.Size(100, 20);
       this.tbSetupID.TabIndex = 0;
       // 
+      // label12
+      // 
+      this.label12.AutoSize = true;
+      this.label12.Location = new System.Drawing.Point(285, 167);
+      this.label12.Name = "label12";
+      this.label12.Size = new System.Drawing.Size(56, 13);
+      this.label12.TabIndex = 51;
+      this.label12.Text = "Comments";
+      // 
+      // rtbComment
+      // 
+      this.rtbComment.Location = new System.Drawing.Point(284, 183);
+      this.rtbComment.Name = "rtbComment";
+      this.rtbComment.Size = new System.Drawing.Size(387, 109);
+      this.rtbComment.TabIndex = 52;
+      this.rtbComment.Text = "";
+      // 
       // testSystemBindingSource
       // 
       this.testSystemBindingSource.DataSource = typeof(JitterTestAnalyser.TestSystem);
@@ -516,6 +539,8 @@
     private System.Windows.Forms.ComboBox cbOpcClient;
     private System.Windows.Forms.Label label11;
     private System.Windows.Forms.ComboBox cbNlcpPoints;
-  }
+        private System.Windows.Forms.RichTextBox rtbComment;
+        private System.Windows.Forms.Label label12;
+    }
 }
 

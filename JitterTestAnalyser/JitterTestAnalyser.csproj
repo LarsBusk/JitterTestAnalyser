@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\Output\JitterTestAnalyzer\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,7 +26,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\Output\JitterTestAnalyzer\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -46,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBaseGetData.cs" />
+    <Compile Include="DataBaseHelper.cs">
+      <DependentUpon>DataBaseHelper.dbml</DependentUpon>
+    </Compile>
     <Compile Include="DataBaseHelper.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

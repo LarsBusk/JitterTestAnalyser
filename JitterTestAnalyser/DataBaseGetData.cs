@@ -50,7 +50,8 @@ namespace JitterTestAnalyser
         testResult.CsvFileName,
         testResult.TestSystem.SystemID,
         testResult.OpcClient,
-        testResult.NlcpPoints);
+        testResult.NlcpPoints,
+        testResult.Comment);
     }
 
     public void AddDelay(DateTime timeStamp, int sampleId, int delay, int systemId, int setupId)

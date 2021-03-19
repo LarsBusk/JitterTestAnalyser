@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.625" name="DataBaseHelper">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DataBaseHelper">
   <DataContextMoniker Name="/DataBaseHelperDataContext" />
   <nestedChildShapes>
     <classShape Id="09694be3-dd43-4cb3-a763-aa43436673da" absoluteBounds="0.75, 3.625, 2, 1.9631982421875">
@@ -21,24 +21,24 @@
         <classShapeMoniker Id="09694be3-dd43-4cb3-a763-aa43436673da" />
       </nodes>
     </associationConnector>
-    <classShape Id="601a18f4-8336-4842-815f-cd8c13b5fff5" absoluteBounds="4.375, 3.75, 2, 4.0785139973958326">
+    <classShape Id="6bec3fb0-f136-40e8-80f2-e3bc62c8b75a" absoluteBounds="5, 3.25, 2, 4.2708154296875">
       <DataClassMoniker Name="/DataBaseHelperDataContext/TestSetup" />
       <nestedChildShapes>
-        <elementListCompartment Id="33d93cb4-683c-4767-9b4f-4388f4047c77" absoluteBounds="4.39, 4.21, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a3a31e33-1d7d-49ee-b5e4-f3b6b54bf395" absoluteBounds="5.015, 3.71, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.375 : 4.66909912109375); (2.75 : 4.66909912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5 : 4.60659912109375); (2.75 : 4.60659912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DataBaseHelperDataContext/TestSetup/TestSetup_Delay" />
       <nodes>
-        <classShapeMoniker Id="601a18f4-8336-4842-815f-cd8c13b5fff5" />
+        <classShapeMoniker Id="6bec3fb0-f136-40e8-80f2-e3bc62c8b75a" />
         <classShapeMoniker Id="09694be3-dd43-4cb3-a763-aa43436673da" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.08423076923077 : 7.82851399739583); (5.08423076923077 : 8.07851399739583); (5.67961538461539 : 8.07851399739583); (5.67961538461539 : 7.82851399739583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.70923076923077 : 7.5208154296875); (5.70923076923077 : 7.7708154296875); (6.30461538461539 : 7.7708154296875); (6.30461538461539 : 7.5208154296875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataBaseHelperDataContext/TestSetup/TestSetup_TestSetup" />
       <nodes>
-        <classShapeMoniker Id="601a18f4-8336-4842-815f-cd8c13b5fff5" />
-        <classShapeMoniker Id="601a18f4-8336-4842-815f-cd8c13b5fff5" />
+        <classShapeMoniker Id="6bec3fb0-f136-40e8-80f2-e3bc62c8b75a" />
+        <classShapeMoniker Id="6bec3fb0-f136-40e8-80f2-e3bc62c8b75a" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

@@ -123,15 +123,9 @@
         </Filter>
         <Filter>
           <FilterExpression>=Fields!TestDateTime.Value</FilterExpression>
-          <Operator>GreaterThan</Operator>
+          <Operator>Between</Operator>
           <FilterValues>
             <FilterValue>=Parameters!FromDate.Value</FilterValue>
-          </FilterValues>
-        </Filter>
-        <Filter>
-          <FilterExpression>=Fields!TestDateTime.Value</FilterExpression>
-          <Operator>LessThan</Operator>
-          <FilterValues>
             <FilterValue>=Parameters!ToDate.Value</FilterValue>
           </FilterValues>
         </Filter>

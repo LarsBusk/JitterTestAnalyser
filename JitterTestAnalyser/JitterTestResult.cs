@@ -39,6 +39,8 @@ namespace JitterTestAnalyser
 
     public int NlcpPoints { get; set; }
 
+    public string Comment { get; set; }
+
     public List<SampleDelay> Delays { get; set; }
 
     public JitterTestResult()
