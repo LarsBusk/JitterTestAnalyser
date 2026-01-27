@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "JitterReports", "JitterReports\JitterReports.rptproj", "{1CE317E3-9199-476E-9418-DF29E68FAF4C}"
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "JitterReports", "JitterReports.rptproj", "{1CE317E3-9199-476E-9418-DF29E68FAF4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
